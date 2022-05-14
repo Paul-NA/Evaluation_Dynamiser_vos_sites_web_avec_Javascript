@@ -1,0 +1,58 @@
+/*
+ * Body 
+ */
+body {
+    font-family: 'Lato', sans-serif; /*Font demander dans l'exercice*/
+    height: 100vh;
+    text-shadow: 0 .05rem .1rem rgba(0, 0, 0, .5);
+    box-shadow: inset 0 0 5rem rgba(0, 0, 0, .5);
+    background: rgb(121,95,37);
+    background: linear-gradient(0deg, rgba(121,95,37,1) 0%, rgba(37,99,121,1) 100%);
+}
+
+.background-container {
+    max-width: 62em;
+
+}
+
+.bg-game{
+    background : linear-gradient(to left, hsla(0, 0%, 95%, 1) 50%, hsla(0, 0%, 98%, 100) 50%);
+    border-radius: 50px;
+}
+
+
+button{
+    font-weight: 300;
+}
+.over:hover{
+    font-weight: bold;
+}
+.score{
+    font-size: 4em;
+    font-weight: 100;
+    color: red;
+}
+.current-score{
+    border-radius: 10px;
+    width: 170px;
+    margin: auto;
+    background-color: red;
+}
+
+.active{
+    color: red;
+    font-weight: 700;  
+}
+
+/**
+@media only screen and (min-device-width: 368px) and (max-device-width: 1024px) and (orientation:portrait) { 
+    body {
+        -webkit-transform: rotate(90deg);
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        position: absolute;
+        top: 0;
+        left: 0; 
+    }
+}*/
