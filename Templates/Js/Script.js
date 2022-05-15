@@ -17,6 +17,10 @@ let scorePlayer2 = document.getElementById('scorePlayer2');
 let currentScoreP2 = document.getElementById('currentPlayer2');
 let activePlayer2 = document.getElementById('activePlayer2');
 
+// Dé
+let dice = document.getElementById('dice');
+
+
 // Variable locale du jeu
 let localeCurrentScore, localeCurrentPlayer, scoreTotalPlayer1, scoreTotalPlayer2;
 
@@ -63,13 +67,14 @@ function initializeGame(){
  */
 function StartGame(){
     // il faut être sur que tout les score sont à zero au démarrage du jeu (JS et HTML)
-    Reset();
+    ResetGame();
     // Initialisation des bouton de jeu
     startGame.addEventListener('click', StartGame);
-    
+    rollDice.addEventListener('click', RollDice);
+    hold.addEventListener('click', Hold);
 }
 
-function Reset(){
+function ResetGame(){
     // On Reset tout les scores
     localeCurrentScore = localeCurrentPlayer = scoreTotalPlayer1 = scoreTotalPlayer2 = 0;
     
@@ -81,4 +86,29 @@ function Reset(){
     activePlayer2.classList.replace("text-danger","d-none");
 }
 
-//myDiv.classList.replace("bg_1", "bg_2");
+
+function RollDice(){
+    //Ici on lance le dé
+    var result = RandomMinMax(1,6);
+    var className = dice.classList.item(1);
+    switch(result){
+        case 1 : dice.classList.replace(className,"bi-dice-1-fill"); break
+        case 2 : dice.classList.replace(className,"bi-dice-2-fill"); break
+        case 3 : dice.classList.replace(className,"bi-dice-3-fill"); break
+        case 4 : dice.classList.replace(className,"bi-dice-4-fill"); break
+        case 5 : dice.classList.replace(className,"bi-dice-5-fill"); break
+        case 6 : dice.classList.replace(className,"bi-dice-6-fill"); break
+    }
+    
+    // on ajoute le score du dé au current du joueur ainsi que dans l'html ?
+}
+
+function RandomMinMax(min, max) { // min and max included 
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+function Hold(){
+    // Ici on ajoute les points au joueurs qui est actif
+
+    // ensuite on passe la main a l'autre joueur
+}
