@@ -15,11 +15,14 @@ body {
 
 }
 
-.bg-game{
+.bg-game-p1{
     background : linear-gradient(to left, hsla(0, 0%, 95%, 1) 50%, hsla(0, 0%, 98%, 100) 50%);
     border-radius: 50px;
 }
-
+.bg-game-p2{
+    background : linear-gradient(to left, hsla(0, 0%, 98%, 100) 50%, hsla(0, 0%, 95%, 1) 50%);
+    border-radius: 50px;
+}
 
 button{
     font-weight: 300;
