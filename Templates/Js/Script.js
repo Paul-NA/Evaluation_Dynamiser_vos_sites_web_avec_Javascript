@@ -17,7 +17,13 @@ let scorePlayer2 = document.getElementById('scorePlayer2');
 let currentScoreP2 = document.getElementById('currentPlayer2');
 let activePlayer2 = document.getElementById('activePlayer2');
 
+// Variable locale du jeu
+let localeCurrentScore, localeCurrentPlayer, scoreTotalPlayer1, scoreTotalPlayer2;
 
+// Liste des boutons du jeu 
+let startGame = document.getElementById('startGame');
+let rollDice = document.getElementById('rollDice');
+let hold = document.getElementById('hold');
 
 /**
  * Initialise le jeu et les joueurs une foi le form remplis correctement
@@ -56,8 +62,23 @@ function initializeGame(){
  * Début du jeu
  */
 function StartGame(){
-    // il faut être sur que tout les score sont à zero au démarrage du jeu
+    // il faut être sur que tout les score sont à zero au démarrage du jeu (JS et HTML)
+    Reset();
+    // Initialisation des bouton de jeu
+    startGame.addEventListener('click', StartGame);
     
+}
+
+function Reset(){
+    // On Reset tout les scores
+    localeCurrentScore = localeCurrentPlayer = scoreTotalPlayer1 = scoreTotalPlayer2 = 0;
+    
+    // On Reset l'affichage aussi
+    scorePlayer1.textContent = scorePlayer2.textContent = currentScoreP1.textContent = currentScoreP2.textContent = 0;
+    
+    // On reassigne l'indicateur du joueur en cours au joueur 1 et cache pour le joueur 2
+    activePlayer1.classList.replace("d-none","text-danger");
+    activePlayer2.classList.replace("text-danger","d-none");
 }
 
 //myDiv.classList.replace("bg_1", "bg_2");
