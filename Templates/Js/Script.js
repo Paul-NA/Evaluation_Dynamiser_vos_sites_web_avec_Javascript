@@ -74,6 +74,9 @@ function StartGame(){
     hold.addEventListener('click', Hold);
 }
 
+/**
+ * Reset le jeu
+ */
 function ResetGame(){
     // On Reset tout les scores
     localeCurrentScore = localeCurrentPlayer = scoreTotalPlayer1 = scoreTotalPlayer2 = 0;
@@ -86,11 +89,17 @@ function ResetGame(){
     activePlayer2.classList.replace("text-danger","d-none");
 }
 
-
+/**
+ * Lance le dé
+ */
 function RollDice(){
     //Ici on lance le dé
     var result = RandomMinMax(1,6);
+    
+    //Selection de la classe actuelle du dé
     var className = dice.classList.item(1);
+    
+    // Remplacement par le nouveau résultat (affichage)
     switch(result){
         case 1 : dice.classList.replace(className,"bi-dice-1-fill"); break
         case 2 : dice.classList.replace(className,"bi-dice-2-fill"); break
@@ -101,9 +110,52 @@ function RollDice(){
     }
     
     // on ajoute le score du dé au current du joueur ainsi que dans l'html ?
+    /**
+     * Regle du jeu, si on fait 1 on vide le localeCurrentScore et on passe au joueur suivant, sinon on ajoute au localeCurrentScore la valeur du dé 
+     */
+    if(result === 1){
+        ChangePlayer();
+    }
+    else{
+        AddCurrentScore(result);
+    }
 }
 
-function RandomMinMax(min, max) { // min and max included 
+/**
+ * Changement de joueur (dé valeur de 1, ou hold)
+ */
+function ChangePlayer(){
+        // réinitialisation du  currentScore du currentScoreP1 et du currentScoreP2 à 0
+        localeCurrentScore = currentScoreP1.textContent = currentScoreP2.textContent = 0;
+
+        // changer le currentPlayer
+        localeCurrentPlayer === 0 ? localeCurrentPlayer = 1 : localeCurrentPlayer = 0;
+
+        // changer l'indicateur de joueur actif
+        if(localeCurrentPlayer === 0){
+            activePlayer1.classList.replace("d-none","text-danger");
+            activePlayer2.classList.replace("text-danger","d-none");
+        }
+        else{
+            activePlayer1.classList.replace("text-danger","d-none");
+            activePlayer2.classList.replace("d-none","text-danger");
+        }
+        
+        //Invertion du background
+        //activePlayer2.classList.replace("text-danger","d-none");
+}
+
+
+/**
+ * On monte le score du joueur en cours de parti
+ * @param {type} score : valeur à ajouter
+ */
+function AddCurrentScore(score){
+    localeCurrentScore += score;
+    localeCurrentPlayer === 0 ? currentScoreP1.textContent = localeCurrentScore : currentScoreP2.textContent = localeCurrentScore;
+}
+
+function RandomMinMax(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
