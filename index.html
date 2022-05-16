@@ -50,7 +50,7 @@
                 </div>
                 <div class="mt-5 d-flex flex-column">
                     <button class="over bg-transparent border-0 fw-bold" id="rollDice"><i class="bi bi-arrow-repeat text-danger pe-1 fs-5"></i>ROLL DICE</button>
-                    <button class="over bg-transparent border-0 fw-bold d-none" id="hold"><i class="bi bi-box-arrow-in-down text-danger pe-1 fs-5"></i>HOLD</button>
+                    <button class="over bg-transparent border-0 fw-bold" id="hold"><i class="bi bi-box-arrow-in-down text-danger pe-1 fs-5"></i>HOLD</button>
                 </div>
             </div>
 
@@ -80,26 +80,44 @@
             <div class="modal-content">
                 <form class=" needs-validation" novalidate>
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Choisissez les noms des joueurs</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">Choisissez le nom des joueurs</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <h3 class="h5 text-lg-start">Joueurs 1</h3>
+                    <h3 class="h5 text-lg-start">Joueur 1</h3>
                     <div class="input-group mb-3">
                         <span class="input-group-text" ><i class="bi bi-person-check-fill"></i></span>
                         <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" id="settingPlayer1" required>
                     </div>
                 
-                    <h3 class="h5 text-lg-start">Joueurs 2</h3> 
+                    <h3 class="h5 text-lg-start">Joueur 2</h3> 
                     <div class="input-group mb-3">
                         <span class="input-group-text" ><i class="bi bi-person-check-fill"></i></span>
                         <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" id="settingPlayer2" required>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary" type="button" onclick="initializeGame()">On est près !</button>
+                    <button class="btn btn-primary" type="button" onclick="initializeGame()">Démarrer la partie</button>
                 </div>
                 </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal fade" id="winner" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">On a un Gagnant !</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h3 class="h5 text-lg-start">Gagnant :</h3>
+                    <p id="msgVainqueur"></p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="button" onclick="initializeGame()">Nouvelle Partie</button>
+                </div>
             </div>
         </div>
     </div>
