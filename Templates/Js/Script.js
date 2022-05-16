@@ -2,6 +2,13 @@
 var playerSetting = new bootstrap.Modal(document.getElementById('setting'), {});
 playerSetting.show();
 
+var winnerModal = new bootstrap.Modal(document.getElementById('winner'), {});
+
+//Score à atteindre pour gagner la parti
+let maxPoint = 100;
+let soundPath = './Templates/mp3/applause.mp3';
+let winnerMessage = document.getElementById('msgVainqueur');
+
 // Variable par defaut pour afficher les nom si besoins
 let player1Name, player2Name = null;
 
@@ -36,7 +43,7 @@ function initializeGame(){
     let checkPlayer1 = document.getElementById('settingPlayer1').value;
     let checkPlayer2 = document.getElementById('settingPlayer2').value;
     
-    
+    // On vérifie que les player 1 et 2 soit renseigner, et qu'il ne sont pas identique
     if(checkPlayer1.length >= 1 && checkPlayer2.length >= 1 && checkPlayer1 !== checkPlayer2)
     {
         // Player 1 : attribution du nom à la variable et affichage en jeu du nom du joueur
@@ -87,6 +94,12 @@ function ResetGame(){
     // On reassigne l'indicateur du joueur en cours au joueur 1 et cache pour le joueur 2
     activePlayer1.classList.replace("d-none","text-danger");
     activePlayer2.classList.replace("text-danger","d-none");
+    
+    //On cache le modal winner
+    winnerModal.hide();
+    
+    //On reset le texte du modal winner
+    winnerMessage.textContent = "";
 }
 
 /**
@@ -155,12 +168,64 @@ function AddCurrentScore(score){
     localeCurrentPlayer === 0 ? currentScoreP1.textContent = localeCurrentScore : currentScoreP2.textContent = localeCurrentScore;
 }
 
+/**
+ * Genère in nombre aleatoire entre le min et le max (inclut)
+ * @param {type} min
+ * @param {type} max
+ * @returns {Number}
+ */
 function RandomMinMax(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
 function Hold(){
     // Ici on ajoute les points au joueurs qui est actif
+    if (localeCurrentPlayer ===0){
+        scoreTotalPlayer1 += localeCurrentScore;
+        scorePlayer1.textContent = ((scoreTotalPlayer1 > maxPoint) ? maxPoint : scoreTotalPlayer1);
+    }
+    else {
+        scoreTotalPlayer2 += localeCurrentScore;
+        scorePlayer2.textContent = ((scoreTotalPlayer2 > maxPoint) ? maxPoint : scoreTotalPlayer2);
+    }
+    
+    //Ici on vérifie si un des joueur est gagnant
+    if(scoreTotalPlayer1 >= maxPoint || scoreTotalPlayer2 >= maxPoint){
+        Winner();
+    }
+    else{
+        ChangePlayer();
+    }
+}
 
-    // ensuite on passe la main a l'autre joueur
+function Winner(){
+
+    // Selection d'un son pour le gagnant et on le joue
+    let audio = new Audio(soundPath);
+    audio.play();
+    
+    // On retire la possibilité d'utilisé les boutons Roll Dice et Hold
+    rollDice.removeEventListener('click', RollDice);
+    hold.removeEventListener('click', Hold);
+    var winner = "";
+    var winnerPoint = 0;
+    var looser = "";
+    var looserPoint = 0;
+    
+    // On affiche le message du gagnant
+    if (scoreTotalPlayer1 >= maxPoint){
+        winner = player1Name;
+        looser = player2Name;
+        winnerPoint = maxPoint;
+        looserPoint = scoreTotalPlayer2;
+    }
+    else if (scoreTotalPlayer2 >= maxPoint){
+        winner = player2Name;
+        looser = player1Name;
+        winnerPoint = maxPoint;
+        looserPoint = scoreTotalPlayer1;
+    }
+    
+    winnerMessage.textContent = "Et le grand gagnant est " + winner + ", il/elle à battu " + looser + " à plate couture " + winnerPoint+"/"+looserPoint + ", on peut dire que "+ winner+" est un génie du jeu Dice Roll!";
+    winnerModal.show();
 }
